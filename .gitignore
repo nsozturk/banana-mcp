@@ -1,0 +1,36 @@
+# ---- SECRETS: never commit live Google session material ----
+secrets/
+*.cookies.json
+cookies.json
+# StorageDump / browser export dumps (contain live auth cookies)
+storagedump_*/
+storagedump_*.zip
+# HAR captures may contain tokens / personal data
+*.har
+gemini-chat-screen*.html
+gemini-chat-screen_files/
+
+# ---- Generated images & run manifests ----
+output/
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# ---- Personal prompt sets (bring your own) ----
+# The maintainer's private prompt files are not shipped; see examples/ instead.
+*-image-prompts.json
+!examples/*.json
+
+# ---- Python ----
+.venv/
+venv/
+__pycache__/
+*.pyc
+.mcp-cache/
+tmp/
+.DS_Store
+
+# Internal agent-orchestration notes (not part of the public tool)
+CLAUDE.md
+AGENTS.md

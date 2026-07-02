@@ -1,0 +1,40 @@
+{
+  "prompt_set": {
+    "title": "Example Image Prompts",
+    "version": "1.0",
+    "source_note": "Neutral sample prompts demonstrating the structured 'Nano Banana' JSON workflow. Replace with your own.",
+    "global_constraints": [
+      "No commercial logos, no visible text, no brand marks",
+      "Photorealistic editorial quality"
+    ]
+  },
+  "prompts": [
+    {
+      "id": "example_001_bosphorus_sunrise",
+      "scene": {
+        "subject": "A calm sunrise over the Bosphorus strait with fishing boats",
+        "setting": "Istanbul waterfront, soft morning mist, seagulls in the distance",
+        "lighting": "warm golden-hour light, gentle reflections on the water",
+        "style": "photorealistic landscape, 35mm, high dynamic range"
+      }
+    },
+    {
+      "id": "example_002_mountain_cabin",
+      "scene": {
+        "subject": "A wooden cabin beside a still alpine lake",
+        "setting": "pine forest, snow-capped peaks in the background",
+        "lighting": "clear blue hour, cool tones, long soft shadows",
+        "style": "photorealistic nature photography, wide angle"
+      }
+    },
+    {
+      "id": "example_003_street_market",
+      "scene": {
+        "subject": "A bustling open-air spice market",
+        "setting": "colorful stalls, baskets of spices, warm ambient crowd",
+        "lighting": "diffused daylight under fabric awnings",
+        "style": "documentary photography, shallow depth of field"
+      }
+    }
+  ]
+}

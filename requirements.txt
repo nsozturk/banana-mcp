@@ -1,0 +1,3 @@
+gemini_webapi==2.0.0
+mcp==1.28.1
+curl_cffi==0.15.0
