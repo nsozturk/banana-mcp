@@ -18,7 +18,7 @@ output/
 *.webp
 # ...but DO ship the committed README hero asset:
 !assets/
-!assets/hero.png
+!assets/**
 
 # ---- Build artifacts ----
 build/

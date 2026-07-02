@@ -55,7 +55,6 @@ class GenResult:
     image_paths: list[str] = field(default_factory=list)
     error: str = ""
     seconds: float = 0.0
-    preview: str = ""  # terminal preview of the first saved image (optional)
 
     def dict(self) -> dict:
         return asdict(self)
@@ -63,15 +62,11 @@ class GenResult:
 
 async def generate(prompt_text: str, prompt_id: str, out_dir: str,
                    model: dict | str | None = None,
-                   max_retries: int = 2,
-                   preview: bool = False, preview_color: bool = True,
-                   preview_width: int = 64) -> GenResult:
+                   max_retries: int = 2) -> GenResult:
     """Send one prompt, download every generated image into out_dir.
 
     Returns a GenResult with saved file paths (empty if the model returned no
-    image — e.g. a text refusal, which is surfaced in `.text`). When `preview`
-    is set, `.preview` holds a terminal preview of the first saved image
-    (preview failures never fail the generation).
+    image — e.g. a text refusal, which is surfaced in `.text`).
     """
     os.makedirs(out_dir, exist_ok=True)
     client = await get_client()
@@ -102,15 +97,6 @@ async def generate(prompt_text: str, prompt_id: str, out_dir: str,
             except Exception as e:  # noqa: BLE001
                 last_err = f"save failed: {type(e).__name__}: {e}"
 
-        preview_str = ""
-        if preview and saved:
-            try:
-                from .preview import render_preview
-                preview_str = render_preview(saved[0], width=preview_width,
-                                             color=preview_color)
-            except Exception as e:  # noqa: BLE001 - preview is best-effort
-                preview_str = f"(preview unavailable: {type(e).__name__}: {e})"
-
         return GenResult(
             prompt_id=prompt_id,
             ok=bool(saved),
@@ -118,7 +104,6 @@ async def generate(prompt_text: str, prompt_id: str, out_dir: str,
             image_paths=saved,
             error="" if saved else (last_err or "no image returned by model"),
             seconds=round(elapsed, 1),
-            preview=preview_str,
         )
 
     return GenResult(prompt_id=prompt_id, ok=False, error=last_err or "unknown error")

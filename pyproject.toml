@@ -20,13 +20,7 @@ dependencies = [
     "gemini_webapi==2.0.0",
     "mcp==1.28.1",
     "curl_cffi==0.15.0",
-    "pillow>=10",
 ]
-
-[project.optional-dependencies]
-# Needed only to render the terminal preview to a PNG/SVG (README hero, make_hero).
-# Auto-installed at runtime by banana._bootstrap when used.
-hero = ["rich>=13", "cairosvg>=2.7"]
 
 [project.scripts]
 banana-mcp = "banana.server:main"
