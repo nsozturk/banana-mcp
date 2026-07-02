@@ -1,3 +1,7 @@
 gemini_webapi==2.0.0
 mcp==1.28.1
 curl_cffi==0.15.0
+pillow>=10
+# Optional (terminal-preview -> PNG/SVG for the README hero); auto-installed on demand:
+# rich>=13
+# cairosvg>=2.7

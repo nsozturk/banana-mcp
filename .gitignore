@@ -16,6 +16,14 @@ output/
 *.jpg
 *.jpeg
 *.webp
+# ...but DO ship the committed README hero asset:
+!assets/
+!assets/hero.png
+
+# ---- Build artifacts ----
+build/
+dist/
+*.egg-info/
 
 # ---- Personal prompt sets (bring your own) ----
 # The maintainer's private prompt files are not shipped; see examples/ instead.

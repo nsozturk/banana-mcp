@@ -5,8 +5,6 @@ import json
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRETS = os.path.join(ROOT, "secrets", "cookies.json")
-DEFAULT_OUTPUT = os.path.join(ROOT, "output")
 
 # Cookies that carry the auth. The rest of the jar is passed through as well so
 # rotation / consistency checks on Google's side see a full, coherent session.
@@ -14,12 +12,52 @@ PRIMARY = "__Secure-1PSID"
 ROTATING = "__Secure-1PSIDTS"
 
 
+def _config_home() -> str:
+    return os.environ.get("XDG_CONFIG_HOME") or os.path.expanduser("~/.config")
+
+
+def user_cookies_path() -> str:
+    """Canonical per-user cookie location (used by pip/uvx/plugin installs)."""
+    return os.path.join(_config_home(), "banana-mcp", "cookies.json")
+
+
+def _repo_cookies_path() -> str:
+    return os.path.join(ROOT, "secrets", "cookies.json")
+
+
+def resolve_cookies_path() -> str:
+    """First existing cookie file, in priority order:
+    $BANANA_COOKIES -> ~/.config/banana-mcp/cookies.json -> <repo>/secrets/cookies.json.
+    Falls back to the user path (for a clear 'not found' message) if none exist.
+    """
+    env = os.environ.get("BANANA_COOKIES")
+    if env:
+        return env
+    for p in (user_cookies_path(), _repo_cookies_path()):
+        if os.path.isfile(p):
+            return p
+    return user_cookies_path()
+
+
+# Where generated images land. $BANANA_OUTPUT wins; else a repo-local ./output
+# when running from a clone; else ./output in the current working directory.
+DEFAULT_OUTPUT = os.environ.get("BANANA_OUTPUT") or (
+    os.path.join(ROOT, "output")
+    if os.path.isdir(os.path.join(ROOT, "banana"))
+    else os.path.join(os.getcwd(), "output")
+)
+
+# Back-compat alias.
+SECRETS = user_cookies_path()
+
+
 def load_cookies(path: str | None = None) -> dict[str, str]:
-    path = path or os.environ.get("BANANA_COOKIES", SECRETS)
+    path = path or resolve_cookies_path()
     if not os.path.isfile(path):
         raise FileNotFoundError(
             f"Cookie file not found: {path}\n"
-            "Run: python scripts/extract_cookies.py <storagedump_folder>"
+            "Export a StorageDump from gemini.google.com, then run:\n"
+            "  python scripts/extract_cookies.py <storagedump_folder>"
         )
     with open(path) as f:
         jar = json.load(f)

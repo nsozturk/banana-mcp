@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "banana-mcp",
+  "version": "0.1.0",
+  "description": "Banana MCP — generate images with your own Gemini (Nano Banana) session.",
+  "owner": { "name": "nsozturk" },
+  "plugins": [
+    {
+      "name": "banana-mcp",
+      "displayName": "Banana MCP",
+      "description": "Headless, BYO-credentials image generation via your own Google Gemini session.",
+      "version": "0.1.0",
+      "author": { "name": "nsozturk" },
+      "category": "development",
+      "homepage": "https://github.com/nsozturk/banana-mcp",
+      "keywords": ["mcp", "gemini", "nano-banana", "image-generation"],
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/nsozturk/banana-mcp",
+        "path": ".",
+        "ref": "main"
+      }
+    }
+  ]
+}

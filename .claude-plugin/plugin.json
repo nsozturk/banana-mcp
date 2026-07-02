@@ -1,0 +1,10 @@
+{
+  "name": "banana-mcp",
+  "version": "0.1.0",
+  "description": "Generate images with your own Google Gemini (Nano Banana) session — headless, BYO-credentials.",
+  "author": { "name": "nsozturk" },
+  "homepage": "https://github.com/nsozturk/banana-mcp",
+  "repository": "https://github.com/nsozturk/banana-mcp",
+  "license": "MIT",
+  "keywords": ["mcp", "gemini", "nano-banana", "image-generation"]
+}
